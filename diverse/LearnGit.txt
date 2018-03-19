@@ -1,0 +1,387 @@
+GIT 
+
+------------- git overview -------------
+-there are 3 layers in a git project
+1. working directory
+2. staging area
+3. git repo (directory) - ./git (git hidden folder)
+(4.) git remote repo which in turn is composed of the same 3 layers as above
+
+------------- git setup -------------
+//chech if git version or if git is installed
+git version
+
+//config global git configs
+git config --global user.name "Trololo Troll"
+git config --global user.email "bla@bla.com"
+git config --global --list
+
+//clone github project
+git clone github-https-url # past in github HTTPS clone URL
+
+//check if projects was cloned
+ls
+
+//crete .txt file with content
+echo "Some content inside text file" >> start.txt
+
+//chech content of txt file
+cat start.txt
+
+//check git status of project
+git status
+
+//add file to git stating area
+git add start.txt
+
+//add file from staging area to ./git repo (hidden folder)
+git commit -m "Adding start text file to git"
+
+//push changes to remote repo
+git push origin master 
+
+
+------------- config notepadd++ as git core editor -------------
+//add home dir of notepad++ to system variables/Path
+
+//make sure you can lunch notepad++ from cmd
+notepad++
+
+//create .bash_profile file for git alias and add following content:
+alias npp='notepad++.exe -multiInst -nosession'
+
+//check global git config file (~ is a shorthand for users home directory)
+cat ~/.gitconfig
+
+//set notepad++ as git core editor	
+git config --global core.editor "notepad++.exe -multiInst -nosession"
+
+//list all configs form user level
+git config --global --list
+
+//test git core editor
+git config --global -e
+
+------------- create git fresh-project -------------
+//init git
+git init fresh-project
+
+//list all files and folders (hidden included)
+ls -al
+
+//create hipster.txt file with lorem ipsum content from www.hipsum.co
+npp hipster.txt
+
+//add hipster.txt to git staging area - a file that is wating to be commited
+git add hispter.txt
+
+
+//commit changes and add commit message from notepad++
+git commit
+
+
+------------- adding git to existing project -------------
+http://www.initializr.com/ - start html project in 15 sec.
+
+//unzip downloaded html project
+//cd to project
+unzip ~/Downloads//initializr-verekia-4.0.zip
+
+//move or rename project from 'initializr' to 'web-project' name
+mv initializr ../web-project
+
+//initialize git repo in the /web-project folder
+git init
+
+//add all untracked files to staging area
+git add .
+
+//the git repository is managed by the .git (hidden) folder
+//if the .git folder is deleted this project will no longer be managed by git
+//this can be done using this command: 
+rm -rf .git
+
+//it is a best practice to update your local git repo before pushing to remote repo
+git pull origin master
+
+//the git push will push any changes from local repo to the remote repo by reference and by branch name
+//"origin" is the name of the remote repository/reference that we cloned from 
+//"master" is the name of the branch
+git push origin master
+
+------------- tracking files -------------
+//a tracked file is any file that git is aware of tracking actively, any file that has been added to the git directory,
+//any file that has been added to the git staging area.
+
+//to find out if your file is being tracked by git, use the following command: 
+git ls-files
+
+//you can add and commit changes in 1 command instead of git add and git commit
+// -am (a - stands for "add to staging") (m - stands for "commit message")
+git commit -am "commit message" 
+
+------------- recursive adding -------------
+//make deep nested folders 
+mkdir -p level1/level2/level3/level4
+
+//make levelx-file.txt for each directory level
+//to add all the files to the stating area and the commit them:
+git add .
+git commit
+
+------------- backing out changes -------------
+//to unstage changes made to a file:
+git reset HEAD <filename>
+
+//this reverts any changes, and moves the file back to changes not to be commited state (working directory)
+
+//to revert even the changes made to the file that git sees as modified in the working directory:
+git checkout -- <filename>
+
+------------- git rename and move file -------------
+//track renamed filels with git
+git mv <filename> <newFileName>
+
+//"file renamed" label will be added in the next git commit
+//best practice is to rename files before any changes
+
+//if you rename the file using the operating sistem or bash
+mv <filename> <newFileName>
+
+//git will see this as <filename> beeing deleted and <newFileName> as a new untracked file
+//git needs to be notified that a file was renamed outside of git commands
+git add -A            (A - stand for detect any renamed, moved or deleted files)
+
+//to unstage any file renames you can use the:
+git rest HEAD 2.txt
+
+//or you can simply rename it back to its older version
+git mv <filename> <oldFileName>
+
+------------- deleting files -------------
+//you can't "git rm" files that where not staged yet
+//unstanged files will be removed using the bash commands
+rm <filename>
+
+//to remove files that where staged or commited use: 
+git rm <filename>
+
+//to unde a delete, you first have to remove it from staging
+gir reset HEAD <filename>
+
+//still "git status" shows that a file was deleted but not tracked, so the file is not yet restored in the file system
+//to restore the file: 
+git checkout -- <filename>
+
+------------- git logs -------------
+git log --all --graph --decorate --oneline
+
+//use git global configs to set alias so that we can use shorthand for the command above
+git config --global alias.hist "log --all --graph --decorate --oneline"
+
+//now just use
+git hist
+
+------------- ignore unwanted files and folder -------------
+//create .gitingore file
+//the .gitignore rules are: 
+//specific file: MyFile.ext
+//file pattern: *ext
+//folder: my-folder/
+
+------------- merge and diff visual tool -------------
+//Visual Diff/Merge Tool setup - p4merge: https://www.perforce.com/products/helix-apps/merge-diff-tool-p4merge
+//p4merge.path Windows
+git config --global merge.tool p4merge
+git config --global mergetool.p4merge.path "C:/Program Files/p4merge.exe"
+git config --global diff.tool p4merge
+git config --global difftool.p4merge.path "C:/Program FIles/p4merge.ext"
+
+//disable prompt for both merge and diff
+git config --global difftool.prompt false
+git config --global mergetool.prompt false
+
+//to see changes between staged and unstaged files
+git diff 	(native use)
+git difftool 	(using the merge tool)
+
+//to see changes between last commit and remote repository
+git diff HEAD	(native use)
+git difftool HEAD	(using the visual merge tool)
+
+//compare staged area to HEAD (last commit on the current branch)
+git difftool --staged HEAD
+
+//limited comparrison to one file (or path)
+git diff -- <paht to file>	(native use)
+git diff -- README.md	(example usage)
+git difftool -- README.md	(using the visual merge tool)
+
+//comparing between commits
+git log --oneline //to display all the commits with their id's
+git diff <commitId1> <commitId2>
+git diff 34f63b HEAD //compare the 34f63b commitId with the HEAD version
+git diff HEAD HEAD^ //compare current version with current version - 1
+git difftool <commitId1> <commitId2> //compare 2 version using the visual merge tool
+
+//comparing between local and remote master branch
+git diff master origin/master //master - is the local repo | origin/master - is the remote repo
+
+------------- branching basics -------------
+//display all local branches
+git branch
+
+//display all branches (including remote branches)
+git branch -a
+
+//create new branch
+git branch <name>
+
+//checkout on new local branch
+git checkout <branchName>
+git branch -a //see which branch is selected
+
+//rename branch
+git branch -m <currentBranchName> <newBranchName>
+
+//deletes only the branch label but the branch is still visible in logs (git  hist)
+git branch -d <branchName>	//you can't delete a branch that you are currently on
+
+
+------------- happy path / fast forword merges -------------
+//create new branch and chechout in one line
+git checkout -b <branchName>
+
+//see changes between 2 branches
+git diff <branch1> <branch2>
+
+//see changes  using the visual merging tool
+git difftool <branch1> <branch2>
+
+//merge branch in the branch that I'm currently checked in
+git merge <branchToMergeIntoCurrentBranch>
+
+
+------------- happy path / disable fast forword merges -------------
+git merge add-copyright --no-ff		//which will result in a commit merge that allows to add a label to the merge
+
+//commit changes with inline message
+git merge <branchName> -m "some text"
+
+------------- conflicting merges and resolution -------------
+//check differences between branches
+git diff <branch1> <branch2>
+
+//merge branch in currently checked in branch
+git merge <branch2>		//if conflicts are found you will be checked out into a intermediar "merging branch" (master|MERGING)
+
+//resolve merge conflicts using the visual tool (p4merge)
+git mergetool
+
+//commit after resolving merge conflicts which will bring as back to the original branch that we where checked in
+//now if we check for changes using 'git status' we will see that there is an untracked file  with a *.orig extentions
+//which actually is a copy of the file on which we fixed the merge conflicts
+//now this file can be ignored (by adding it to the .gitignore file or by simply removeing it all togheter)
+
+------------- rebaseing -------------
+//bring the latest changes from master to your currrent working branch in order to avoid masive future merges.
+//so you want to rebase master into the feature branch
+git rebase <sourceBranch>	//in this case "master"
+
+//aborting a rebase
+git rebase --abort
+
+//in case of rebase merging conflicts
+git rebase <sourceBranch>
+git mergetool	//to visualy solve merging conflicts
+git rebase --continue	//to continue rebase process
+
+//to only update the references from the remote to the local repo without causing merge conflicts
+git fetch origin master
+
+//if the branches have diverged the you can pull using a rebase param
+git pull --rebase origin master		//this will couse a rebase instead of a normal merge
+
+------------- stashing -------------
+//to put aside some changes and quickly commit something now, use the stash command
+git stash
+
+//after commiting some other changes, to get back the changes that were stashed:
+git stash apply
+
+//to see any entries in the stash area: 
+git stash list
+
+//to clear the stash:
+git stash drop
+
+//note that git will stash only tracked files
+//to also include any untracked files (that are not being excluded by git ignore file), use: 
+git stash -u
+
+//to "git stash apply" and "git stash drop" in one line, use: 
+git stash pop
+
+//to add a commit message for a stash - it makes it easier to diferentiate between many stashes
+git stash save "some message"
+
+//to show specific stash:
+git stash show stash@{stashIndex}
+
+//to apply specific stash:
+git stash apply stash@{stashIndex}
+
+//to drop specific stash: 
+git stash drop stash@{stashIndex}
+
+//to clear all stashes
+git stash clear
+
+//to stash all changes to a new branch
+git stash branch <branchName>
+
+------------- tag -------------
+//to mark significant events of milestones into our git repo, we could use tha tagging support
+//tags are nothing more then labels that we can apply at any commit in the history
+git tag <nameOfTheTag>	//this is a light weight tag, just a marker on a particular commit
+
+//to see a list of all the tags
+git tag --list
+
+
+------------- happy flow examples -------------
+//1. commit my current changes to a different branch 
+git stash save "some label for this stash"
+git branch -a	//list all branches
+git branch <newBranchName>	//create new branch
+git checkout <newBranchName>	
+git stash list	//see all stashed files
+git stash apply stash@{stashIndex}
+git stash drop stash@{stashIndex}	//to delete this particular stash
+
+
+------------- git submodules example -------------
+git submodule add git@github.com:illeandrei/fresh-project.git	//add remote submodule
+git status 	// will show the new .gitmodules file and an empty directory with the submodule project name
+			// .gitmodules is a config file that stores the  mapping between the project’s URL and the local subdirectory // you’ve pulled it into
+			// also the .gitmodules is version-controlled, just like .gitignore, so it's pushed and pulled with the rest of // your project
+git diff --cached --submodule	//to see differences of current state to the last commit
+git commit -am 'added fresh-project module'
+git push origin master	//push changes to remote
+						//move to submodule,
+git branch <newBranchName>	
+git checkout <branch>	//create new branch and make new file
+						//commit and push changes
+git push -u origin <branch> //push branch to remote
+git config -f .gitmodules submodule.fresh-project.branch test-submodules	//change branch of submodule from which 
+																			//to consume changes
+git submodule update --remote fresh-project/	//get changes from specific submodule (don't use submodule name if you 
+												//want all submodules to be updated)
+git diff --submodule 	//show changes from last commit
+git config status.submodulesummary 1	//to show a short summary of changes to your submodule
+git log -p --submodule //see the log of commits that we're about to commit to in our submodule
+git log -p 	//see log of commits from submodules after commit
+
+
+
+
