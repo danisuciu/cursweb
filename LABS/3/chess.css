@@ -1,0 +1,14 @@
+#table_1 {
+    border-collapse: collapse;
+    border-color: #0f0f0f;
+    color: #0f0f0f;
+}
+
+td {
+    height: 50px;
+    width: 50px;
+}
+
+.td1 {
+    background-color: #0f0f0f;
+}

@@ -8,7 +8,7 @@ body {
     color: #2D2D2D;
 }
 #wrapper{
-    max-width: 640px;
+    max-width: 800px;
     margin: 0 auto;
 }
 .page {
@@ -38,6 +38,7 @@ body {
     padding-bottom: 40px;
 }
 
+
 h1 {
     color: #5b8ec0;
     font-size: 40px;
@@ -53,6 +54,13 @@ h2 {
 h3 {
     font-size: 14px;
     font-weight: normal;
+    line-height: 1.5;
+}
+
+h4 {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.5;
 }
 
 div {
@@ -62,6 +70,7 @@ div {
 
 ul {
     line-height: 1.5;
+    padding-left: auto;
 }
 
 table, th, td {
@@ -83,31 +92,33 @@ table, th, td {
 }
 
 #top-menu-bar {
-    text-align: center;
-    background-color:#5b8ec0;
-    color:#fff;
-    font-size: 14px;
+    position: fixed;
+    top: 40px;
+    right: 375px;
+    width: 150px;
+    text-align: left;
+    color:#5b8ec0;
+    font-size: 12px;
     font-weight: normal;
-    margin-top: 40px;
 }
 
 #top-menu-bar li {
-    display:inline;
+    display: block;
     margin: 0;
     padding: 0;
 }
 
 #top-menu-bar a {
     text-decoration: none;
-    color: #fff;
-    padding: 0 15px 0 15px;
+    color: #5b8ec0;
+    padding: 0 10px 0 10px;
 }
 
 #top-menu-bar a:visited {
-    color: #fff;
+    color: #5b8ec0;
 }
 
 #top-menu-bar a:hover {
-    color: #000000;
-    background: #fff;
+    color: #5b8ec0;
+    font-weight: bold;
 }
