@@ -1,7 +1,5 @@
-#table_1 {
-    border-collapse: collapse;
-    border-color: #0f0f0f;
-    color: #0f0f0f;
+#table {
+    border: #0f0f0f solid 1px;
 }
 
 td {
@@ -9,6 +7,12 @@ td {
     width: 50px;
 }
 
-.td1 {
+#tdblack {
     background-color: #0f0f0f;
+    border: #0f0f0f solid 1px;
+}
+
+#tdwhite {
+    background-color: #e6e6e6;
+    border: #0f0f0f solid 1px;
 }
