@@ -1,4 +1,4 @@
-var size = 50;
+var size = 25;
 for(i = 0; i< size; i++){
     if(i % 2 == 0){
         document.write("<td id='tdblack'></td>");
