@@ -1,0 +1,18 @@
+#table {
+    border: #0f0f0f solid 1px;
+}
+
+td {
+    height: 50px;
+    width: 50px;
+}
+
+#tdblack {
+    background-color: #0f0f0f;
+    border: #0f0f0f solid 1px;
+}
+
+#tdwhite {
+    background-color: #e6e6e6;
+    border: #0f0f0f solid 1px;
+}
