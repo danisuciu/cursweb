@@ -1,0 +1,3 @@
+Sa incercam sa ne jucam cu widget, sa le asezam la stanga sau dreaptea, cum avem exemplu in web-programming-tutorial.
+Sa experimentam cat mai mult cu JS, calcule simple, scade taxa dintr-o suma, calculeaza varsta etc.
+Recapitulare.
